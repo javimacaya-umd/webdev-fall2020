@@ -18,5 +18,10 @@
     <script>
         var map = L.map('map', {center: [42.362432, -71.086086], zoom= 14});
     </script>
+    
+    <! -- Adding OpenStreetMap tile layer as basemap -->
+    <script>
+        L.tilelayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    </script>
 </body>
 </html>
