@@ -10,6 +10,22 @@
     
     <! -- CSS Styling -->
     <style>
+        /* 
+            Making the map full-screen
+            Source: https://leafletjs.com/examples/mobile/
+        */
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            top: 60px;
+        }
+        
         /*  Header Styling
             Source: http://jsfiddle.net/agorshkov23/5osbcpyc/
         */
@@ -27,7 +43,7 @@
             height: 60px;
             /* white text */
             color: white;
-            /* green background */
+            /* coral background */
             background-color: coral;
             /* some spacing */
             padding-left: 14px;
@@ -52,7 +68,7 @@
         
         /* link or anchor tag(<a>) styling */
         a {
-            color: limegreen;
+            color: blueviolet;
         }
         
         /* put this text in line with other text in header */
@@ -67,11 +83,11 @@
         <header id="header">
             <h1>A nice Leaflet map!</h1>
             <h3><a href="https://leafletjs.com" target="_blank">I built this with leaflet</a></h3>
-            <h5 class="right">GIS4533 | Fall 2020 | Javier Macaya Garcia</h5>
+            <h5 class="right">GIS 4533 | Fall 2020 | Javier Macaya Garcia</h5>
         </header>
     
     <! -- Adding map -->
-        <div id="map" style="width: 705px; height: 375px"></div>
+        <div id="map"></div>
 
     <! -- Leaflet JS Latest Version on September 3, 2020 -->
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
