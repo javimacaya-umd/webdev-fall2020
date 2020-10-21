@@ -7,9 +7,69 @@
 
     <! -- Leaflet CSS Latest Version on September 3, 2020 -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <! -- CSS Styling -->
+    <style>
+        /*  Header Styling
+            Source: http://jsfiddle.net/agorshkov23/5osbcpyc/
+        */
+        #header {
+            /* positions at the top of the page */
+            top: 0;
+            /* make it full width */
+            width: 100%;
+            /* make it visible on top of the map */
+            z-index: 999999;
+            /* fixed position within <body> */
+            position: fixed;
+            /* note that the map is positioned this far from the top of the
+            page*/
+            height: 60px;
+            /* white text */
+            color: white;
+            /* green background */
+            background-color: coral;
+            /* some spacing */
+            padding-left: 14px;
+            /* my attempt at not overlapping the map*/
+            overflow: hidden;
+            /* different font */
+            font-family: Helvetica, sans-serif;
+        }
+        
+        /* header children styling */
+        #header * {
+            /* put everything on the same line */
+            display: inline-block;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+        
+        /* bring items to the right */
+        .right {
+            float: right;
+        }
+        
+        /* link or anchor tag(<a>) styling */
+        a {
+            color: limegreen;
+        }
+        
+        /* put this text in line with other text in header */
+        #header h5 {
+            margin-top: 25px;
+        }
+    </style>
 </head>
 
 <body>
+    <! -- Adding a header for my map --> 
+        <header id="header">
+            <h1>A nice Leaflet map!</h1>
+            <h3><a href="https://leafletjs.com" target="_blank">I built this with leaflet</a></h3>
+            <h5 class="right">GIS4533 | Fall 2020 | Javier Macaya Garcia</h5>
+        </header>
+    
     <! -- Adding map -->
         <div id="map" style="width: 705px; height: 375px"></div>
 
