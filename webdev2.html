@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Leaflet Map</title>
+
+    <! -- Leaflet CSS Latest Version on September 3, 2020 -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <! -- CSS Styling -->
+    <style>
+        /* 
+            Making the map full-screen
+            Source: https://leafletjs.com/examples/mobile/
+        */
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            top: 60px;
+        }
+        
+        /*  Header Styling
+            Source: http://jsfiddle.net/agorshkov23/5osbcpyc/
+        */
+        #header {
+            /* positions at the top of the page */
+            top: 0;
+            /* make it full width */
+            width: 100%;
+            /* make it visible on top of the map */
+            z-index: 999999;
+            /* fixed position within <body> */
+            position: fixed;
+            /* note that the map is positioned this far from the top of the
+            page*/
+            height: 60px;
+            /* white text */
+            color: white;
+            /* coral background */
+            background-color: coral;
+            /* some spacing */
+            padding-left: 14px;
+            /* my attempt at not overlapping the map*/
+            overflow: hidden;
+            /* different font */
+            font-family: Helvetica, sans-serif;
+        }
+        
+        /* header children styling */
+        #header * {
+            /* put everything on the same line */
+            display: inline-block;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+        
+        /* bring items to the right */
+        .right {
+            float: right;
+        }
+        
+        /* link or anchor tag(<a>) styling */
+        a {
+            color: blueviolet;
+        }
+        
+        /* put this text in line with other text in header */
+        #header h5 {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <! -- Adding a header for my map --> 
+        <header id="header">
+            <h1>A nice Leaflet map!</h1>
+            <h3><a href="https://leafletjs.com" target="_blank">I built this with leaflet</a></h3>
+            <h5 class="right">GIS 4533 | Fall 2020 | Javier Macaya Garcia</h5>
+        </header>
+    
+    <! -- Leaflet Omnivore 0.3.1-->
+        <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'>
+        </script>
+    
+    <! -- Adding map -->
+        <div id="map"></div>
+
+    <! -- Leaflet JS Latest Version on September 3, 2020 -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <! -- Creating variable map to hold map element, plus initial settings to map -->
+        <script>
+        var map = L.map('map', {
+        center: [44.362432, -98.086086],
+        zoom: 4
+        });
+        </script>
+
+    <! -- Adding OpenStreetMap tile layer as basemap -->
+        <script>
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+            }).addTo(map);
+        </script>
+    
+    <! -- Creating and styling Airport Icon using airport.png -->
+        <script>
+            var airportIcon = L.icon({
+                iconUrl: 'airport.png',
+                iconSize: [30,25]
+            });
+        </script>
+    
+    <!-- Adding Airport Icon to markers with GeoJSON as a template layer-->
+        <script>
+            var templateLayer = L.geoJson(null, {
+                pointToLayer: function(feature, latlong){
+                    return L.marker(latlong, {icon: airportIcon});
+                }
+            });
+        </script>
+    
+    <! -- Creating airports layer using template layer and airports.csv -->
+        <script>
+            var airportsLayer = omnivore.csv('airports.csv', null, templateLayer).addTo(map);
+        </script>
+</body>
+
+</html>
