@@ -110,10 +110,27 @@
             attribution: '© OpenStreetMap'
             }).addTo(map);
         </script>
-   
-    <! -- Adding Airports.csv using Leaflet Omnivore -->
+    
+    <! -- Creating and styling Airport Icon using airport.png -->
         <script>
-            omnivore.csv('airports.csv').addTo(map);
+            var airportIcon = L.icon({
+                iconUrl: 'airport.png',
+                iconSize: [30,20]
+            });
+        </script>
+    
+    <!-- Adding Airport Icon to markers with GeoJSON as a template layer-->
+        <script>
+            var templateLayer = L.geoJson(null, {
+                pointToLayer: function(feature, latlong){
+                    return L.marker(latlong, {icon: airportIcon});
+                }
+            });
+        </script>
+    
+    <! -- Creating airports layer using template layer and airports.csv -->
+        <script>
+            var airportsLayer = omnivore.csv('airports.csv', null, templateLayer).addTo(map);
         </script>
 </body>
 
