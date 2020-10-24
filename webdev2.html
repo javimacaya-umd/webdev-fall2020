@@ -86,6 +86,10 @@
             <h5 class="right">GIS 4533 | Fall 2020 | Javier Macaya Garcia</h5>
         </header>
     
+    <! -- Leaflet Omnivore 0.3.1-->
+        <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'>
+        </script>
+    
     <! -- Adding map -->
         <div id="map"></div>
 
@@ -105,6 +109,11 @@
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
             }).addTo(map);
+        </script>
+   
+    <! -- Adding Airports.csv using Leaflet Omnivore -->
+        <script>
+            omnivore.csv('airports.csv').addTo(map);
         </script>
 </body>
 
