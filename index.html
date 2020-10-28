@@ -35,6 +35,12 @@
         <script>
             var KendallSqTStation = L.marker([42.362432, -71.086086]).addTo(map);
         </script>
+    
+    <! -- Binding popup to Kendall Square T Station -->
+        <script>
+            KendallSqTStation.bindPopup("<h3>Kendall Square</h3><p>Cambridge, MA <br>Information about Kendall Square.</p>");    
+        </script>
+    
     <! -- Adding a polyline for Mass Ave Bridge -->
         <script>
             var MassAveBridge = L.polyline([[42.357227, -71.092631], [42.351411, -71.089723]], {color: 'red', weight: 10}).addTo(map);
