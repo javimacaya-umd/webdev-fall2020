@@ -66,6 +66,16 @@
         <script>
             var popupMap = L.popup();
         </script>
+    
+    <! -- Creating function to set properties of the popup -->
+        <script>
+            function onMapClick(e) {
+                popupMap
+                        .setLatLng(e.latlng)
+                        .setContent("You clicked the map at " + e.latlng.toString())
+                        .openOn(map);
+            }
+        </script>
 </body>
 
 </html>
