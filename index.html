@@ -30,18 +30,56 @@
             attribution: '© OpenStreetMap'
             }).addTo(map);
         </script>
+    
     <! -- Adding a point feature (marker) for Kendall Square T Station -->
         <script>
             var KendallSqTStation = L.marker([42.362432, -71.086086]).addTo(map);
         </script>
+    
+    <! -- Binding popup to Kendall Square T Station -->
+        <script>
+            KendallSqTStation.bindPopup("<h3>Kendall Square</h3><p>Cambridge, MA <br>Information about Kendall Square.</p>");    
+        </script>
+    
     <! -- Adding a polyline for Mass Ave Bridge -->
         <script>
             var MassAveBridge = L.polyline([[42.357227, -71.092631], [42.351411, -71.089723]], {color: 'red', weight: 10}).addTo(map);
         </script>
+    
+    <! -- Binding popup to Mass Ave Bridge -->
+        <script>
+            MassAveBridge.bindPopup("Mass Ave Bridge");
+        </script>    
+   
     <! -- Adding a polygon for MIT -->
         <script>
             var Mit = L.polygon([[42.353770, -71.103606], [42.355447, -71.104475],
-    [42.362681, -71.089830], [42.361829, -71.079230]], {color: 'blue', weight: 4}).addTo(map);
+            [42.362681, -71.089830], [42.361829, -71.079230]], {color: 'blue', weight: 4}).addTo(map);
+        </script>
+    
+    <! -- Binding popup to MIT -->
+        <script>
+            Mit.bindPopup("MIT Campus");
+        </script>
+    
+    <! -- Adding empty popup object to map -->
+        <script>
+            var popupMap = L.popup();
+        </script>
+    
+    <! -- Creating function to set properties of the popup -->
+        <script>
+            function onMapClick(e) {
+                popupMap
+                        .setLatLng(e.latlng)
+                        .setContent("You clicked the map at " + e.latlng.toString())
+                        .openOn(map);
+            }
+        </script>
+    
+    <! -- Listening for a click event on the map object -->
+        <script>
+            map.on("click", onMapClick);
         </script>
 </body>
 

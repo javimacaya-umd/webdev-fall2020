@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Leaflet Map</title>
+
+    <! -- Leaflet CSS Latest Version on September 3, 2020 -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <! -- CSS Styling -->
+    <style>
+        /* 
+            Making the map full-screen
+            Source: https://leafletjs.com/examples/mobile/
+        */
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            top: 60px;
+        /* Making the map window bigger, source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev3.html */   
+            height: calc(100vh - 60px);
+        }
+        
+        /*  Header Styling
+            Source: http://jsfiddle.net/agorshkov23/5osbcpyc/
+        */
+        #header {
+            /* positions at the top of the page */
+            top: 0;
+            /* make it full width */
+            width: 100%;
+            /* make it visible on top of the map */
+            z-index: 999999;
+            /* fixed position within <body> */
+            position: fixed;
+            /* note that the map is positioned this far from the top of the
+            page*/
+            height: 60px;
+            /* white text */
+            color: white;
+            /* coral background */
+            background-color: coral;
+            /* some spacing */
+            padding-left: 14px;
+            padding-right: 14px;
+            /* my attempt at not overlapping the map*/
+            overflow: hidden;
+            /* different font */
+            font-family: Helvetica, sans-serif;
+        }
+        
+        /* header children styling */
+        #header * {
+            /* put everything on the same line */
+            display: inline-block;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+        
+        /* bring items to the right */
+        .right {
+            float: right;
+        }
+        
+        /* link or anchor tag(<a>) styling */
+        a {
+            color: blueviolet;
+        }
+        
+        /* put this text in line with other text in header */
+        #header h5 {
+            margin-top: 25px;
+        }
+        
+        /* Latitude/Longitude coordinates element styling */
+        /* Adapted from source 1: https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/ and adapted from source 2:view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev3.html */
+        #mapCoordinates {
+            color: red;
+            float: right;
+            z-index: 999;
+            position: relative;
+            margin: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <! -- Adding a header for my map --> 
+        <header id="header">
+            <h1>A nice Leaflet map!</h1>
+            <h3><a href="https://leafletjs.com" target="_blank">I built this with leaflet</a></h3>
+            <h5 class="right">GIS 4533 | Fall 2020 | Javier Macaya Garcia</h5>
+        </header>
+    
+    <! -- Adding map -->
+        <div id="map"></div>
+    
+    <! -- Creating an element for displaying latitude/longitude coordinates -->
+        <pre id="mapCoordinates"></pre>
+
+    <! -- Leaflet JS Latest Version on September 3, 2020 -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <! -- Changing Map Focus to Duluth -->
+        <script>
+        var map = L.map('map', {
+        center: [46.79, -92.10],
+        zoom: 13
+        });
+        </script>
+
+    <! -- Changing basemap to Esri NatGeoWorldMap-->
+    <! -- Source: http://leaflet-extras.github.io/leaflet-providers/preview/ -->
+        <script>
+            var Esri_NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	        attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+	        maxZoom: 16
+            }).addTo(map);
+        </script>
+    
+    <! -- Adding Enger Tower -->
+        <script>
+            var EngerTower = L.marker([46.77611, -92.12496]).addTo(map);
+        </script>
+    
+    <! -- Binding popup to Enger Tower -->
+    <!-- Information about Enger Tower from Wikipedia -->
+        <script>
+            EngerTower.bindPopup("<h2>Enger Tower</h2> <p>An 80-foot (24 m), five-story stone observation tower atop Enger Hill</p>");
+        </script>
+    
+    <! -- Adding North 21st Ave East -->
+        <script>
+            var North21AveEast = L.polyline([[46.8113, -92.07914], [46.80697, -92.07211]], {color: 'green', weight: 6}).addTo(map);
+        </script>
+    
+    <! -- Binding popup to North 21st Ave East -->
+        <script>
+            North21AveEast.bindPopup("<h2>North 21st Ave East</h2> <p>This is a nice street</p>");
+        </script>
+    
+    <! -- Adding UMD -->
+        <script>
+            var Umd = L.polygon([[46.815, -92.0783], [46.8196, -92.0779], [46.8204, -92.0794], [46.822, -92.0794], [46.8222, -92.0806], [46.8232, -92.0808], [46.8234, -92.0854], [46.8227, -92.0873], [46.822, -92.0871], [46.8199, -92.0909], [46.815, -92.0906]], {color: 'purple', weight: 6}).addTo(map);
+        </script>
+    
+    <! -- Binding popup to UMD -->
+        <script>
+            Umd.bindPopup("<h2>UMD</h2> <p>University of Minnesota Duluth</p>");
+        </script>
+    
+    <! -- Displaying latitude/longitude coordinates as mouse cursor moves around map -->
+    <! -- Adapted from source 1: https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/ and adapted from source 2:view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev3.html--> 
+        <script>
+            map.on('mousemove', function(cursorMoving) {
+                document.getElementById('mapCoordinates').innerHTML = "Current position = " +JSON.stringify(cursorMoving.latlng);
+            }); 
+        </script>
+</body>
+
+</html>
