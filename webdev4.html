@@ -113,6 +113,7 @@
         </script>
     
     <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
+    <! -- Applying diverging symbology, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
         <script>
             // load GeoJSON from an external file        
             $.getJSON("duluth_precincts_WGS84.geojson",function(data){
@@ -142,6 +143,21 @@
                             else {
                                 fill = '#31a354';
                             }
+
+                        // FIXME: remove existing symbolization and create a diverging
+                        // symbology based the democrat or republic vote as a percent
+                        // of the total vote.
+                        // Use Colorbrewer's 5-class Red-Blue colors for this
+                        // http://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
+
+                        // return style specification
+                        return {
+                            color: '#636363',
+                            weight: 2,
+                            fillColor: fill,
+                            fillOpacity: 0.7
+                        }
+                    },
                 }).addTo(map);
             });	
         </script>
