@@ -77,6 +77,10 @@
         #header h5 {
             margin-top: 25px;
         }
+        
+        /* representative color styling for each party, based on source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html */
+        #colorDem {color: blue;}
+        #colorRep {color: red;}
     </style>
 </head>
 
@@ -178,10 +182,11 @@
                         var partyPct = calculatePartyPct(feature);
                     
                         // show name of precinct and party percent in popup
+                        // adding representative styling (color) for each party, based on source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html
                         layer.bindPopup(
                             "<h3>" + feature.properties.PCTNAME + "</h3>" +
-                            "<p>Democrat Vote: <span class='dem'>" + partyPct.dem + "%</span></p>" +
-                            "<p>Republican Vote: <span class='rep'>" + partyPct.rep + "%</span></p>"
+                            "<div id ='colorDem'><p> Democrat Vote: <span class='dem'>" + partyPct.dem + "%</span></p></div>" +
+                            "<div id='colorRep'><p> Republican Vote: <span class='rep'>" + partyPct.rep + "%</span></p></div>"
                         );
                     }
                 }).addTo(map);
