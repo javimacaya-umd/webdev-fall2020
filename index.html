@@ -84,6 +84,13 @@
         <script>
             map.on("click", onMapClick);
         </script>
+    
+    <! -- Adding coffee_cafes.geojson -->
+        <script>
+            $.getJSON("coffee_cafes.geojson", function(coffeeData){
+                L.geoJson(coffeeData).addTo(map);
+            });
+        </script>
 </body>
 
 </html>
