@@ -113,9 +113,9 @@
         </script>
     
     <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
-    <! -- Applying diverging symbology, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Adding popups to each feature, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Calculating percent of the vote that belongs to the third party, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
+    <! -- Creating diverging symbology based on the DFL or republican vote as a percent of the total vote, Adapted from: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
         <script>
             // load GeoJSON from an external file        
             $.getJSON("duluth_precincts_WGS84.geojson",function(data){
@@ -123,34 +123,45 @@
                 // add GeoJSON layer to the map once the file is loaded
                 L.geoJson(data,{
                     style: function (feature) {
-
-                        // calculate third party percent of vote using function
-                        var thirdPartyPct = calculateThirdPartyPct(feature);
                         
-                        // assign colors from the ColorBrewer yellow-green scale
+                        // calculate party percent of vote using function
+                        var partyPct = calculatePartyPct(feature);
+                        
+                        // assign colors from the ColorBrewer's 5-class red-blue scale
                         var fill;
+                        var colors = ['#ca0020', '#f4a582', '#f7f7f7', '#92c5de', '#0571b0'];
                         
-                        // equal interval classification
-                            // 7% or less
-                            if (thirdPartyPct <= 7) {
-                                fill = '#f7fcb9';
-                            }
-                            
-                            // 11% or less
-                            else if (thirdPartyPct <= 11) {
-                                fill = '#addd8e';
-                            }
+                        // manual classification
                         
-                            // 12% or more
-                            else {
-                                fill = '#31a354';
-                            }
-
-                        // FIXME: remove existing symbolization and create a diverging
-                        // symbology based the democrat or republic vote as a percent
-                        // of the total vote.
-                        // Use Colorbrewer's 5-class Red-Blue colors for this
-                        // http://colorbrewer2.org/#type=diverging&scheme=RdBu&n=5
+                        // republican 35% or more
+                        if (partyPct.rep >= 40) {
+                            fill = colors[0];
+                            console.log('rep40');
+                        }
+                        
+                        // republican 30% or more
+                        else if (partyPct.rep >= 35) {
+                            fill = colors[1];
+                            console.log('rep30');
+                        }
+                        
+                        // fairly even (both parties within 1%)
+                        else if (partyPct.rep >= 30 && partyPct.dem <= 59) {
+                            fill = colors[2];
+                            console.log('mid');
+                        }
+                        
+                        // democrat 65% or more
+                        else if (partyPct.dem >= 60 && partyPct.dem <= 65) {
+                            fill = colors[3];
+                            console.log('dem65');
+                        }
+                        
+                        // democrat 75% or more
+                        else {
+                            fill = colors[4];
+                            console.log('else');
+                        }   
 
                         // return style specification
                         return {
