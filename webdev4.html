@@ -111,6 +111,40 @@
             attribution: '© OpenStreetMap'
             }).addTo(map);
         </script>
+    
+    <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
+        <script>
+            // load GeoJSON from an external file        
+            $.getJSON("duluth_precincts_WGS84.geojson",function(data){
+
+                // add GeoJSON layer to the map once the file is loaded
+                L.geoJson(data,{
+                    style: function (feature) {
+
+                        // calculate third party percent of vote using function
+                        var thirdPartyPct = calculateThirdPartyPct(feature);
+                        
+                        // assign colors from the ColorBrewer yellow-green scale
+                        var fill;
+                        
+                        // equal interval classification
+                            // 7% or less
+                            if (thirdPartyPct <= 7) {
+                                fill = '#f7fcb9';
+                            }
+                            
+                            // 11% or less
+                            else if (thirdPartyPct <= 11) {
+                                fill = '#addd8e';
+                            }
+                        
+                            // 12% or more
+                            else {
+                                fill = '#31a354';
+                            }
+                }).addTo(map);
+            });	
+        </script>
 </body>
 
 </html>
