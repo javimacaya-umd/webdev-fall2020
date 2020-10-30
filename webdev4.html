@@ -113,9 +113,9 @@
         </script>
     
     <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
-    <! -- Calculating percent of the vote that belongs to the third party, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Creating diverging symbology based on the DFL or republican vote as a percent of the total vote, Adapted from: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
     <! -- Adding popups to each feature, Adapted from: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
+    <! -- Calculating the percent of the vote that belongs to Democrats and Republicans, Source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
         <script>
             // load GeoJSON from an external file        
             $.getJSON("duluth_precincts_WGS84.geojson",function(data){
@@ -188,20 +188,23 @@
             });
             
             // a function that takes a feature and returns the percent of the vote
-            // that doesn't belong to Republican or Democrat (ie. Third Party)
-            function calculateThirdPartyPct(feature) {
+            // that belongs to Republicans and Democrats in the form of a vote object
+            function calculatePartyPct(feature) {
                 var demVote = feature.properties.USPRSDFL;
                 var repVote = feature.properties.USPRSR;
                 var totalVote = feature.properties.USPRSTOTAL;
-    
-                // third party vote is whatever is left over from dem and rep vote
-                var thirdPartyVote = (totalVote - demVote - repVote);
+
+                // calculate democratic as a percent of the total vote
+                var demPct = Math.round(demVote/totalVote*100);
                 
-                // calculate as a percent of the total vote
-                var thirdPartyPct = Math.round(thirdPartyVote/totalVote*100);
+                // calculate republican as a percent of the total vote
+                var repPct = Math.round(repVote/totalVote*100);
                 
-                // return the third party percent for this feature
-                return thirdPartyPct;
+                // return the voting percentages as a JS Object
+                return {
+                    rep: repPct,
+                    dem: demPct
+                };
             }
         </script>
 </body>
