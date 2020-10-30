@@ -114,6 +114,7 @@
     
     <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Applying diverging symbology, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
+    <! -- Adding popups to each feature, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
         <script>
             // load GeoJSON from an external file        
             $.getJSON("duluth_precincts_WGS84.geojson",function(data){
@@ -158,6 +159,18 @@
                             fillOpacity: 0.7
                         }
                     },
+
+                    // do something to each feature
+                    // in this case create a popup
+                    onEachFeature: function (feature, layer) {
+                        var thirdPartyPct = calculateThirdPartyPct(feature);
+            
+                        // show name of precinct and third party percent in popup
+                        layer.bindPopup(
+                            "<h3>" + feature.properties.PCTNAME + "</h3>" +
+                            "<p>Third Party Vote: " + thirdPartyPct + "%</p>"
+                        );
+                    }
                 }).addTo(map);
             });	
         </script>
