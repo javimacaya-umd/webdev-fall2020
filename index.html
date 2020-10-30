@@ -88,7 +88,11 @@
     <! -- Adding coffee_cafes.geojson -->
         <script>
             $.getJSON("coffee_cafes.geojson", function(coffeeData){
-                L.geoJson(coffeeData).addTo(map);
+                L.geoJson(coffeeData, {
+                    onEachFeature: function(feature, layer) {
+                        layer.bindPopup(feature.properties.name);
+                    }
+                }).addTo(map);
             });
         </script>
 </body>
