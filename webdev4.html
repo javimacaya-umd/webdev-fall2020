@@ -113,9 +113,9 @@
         </script>
     
     <! -- Adding duluth_precincts_WGS84.geojson to map, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
-    <! -- Adding popups to each feature, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Calculating percent of the vote that belongs to the third party, Source: https://github.com/kristofj-umd/webdev-unit/blob/master/precincts-geojson.js -->
     <! -- Creating diverging symbology based on the DFL or republican vote as a percent of the total vote, Adapted from: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
+    <! -- Adding popups to each feature, Adapted from: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html -->
         <script>
             // load GeoJSON from an external file        
             $.getJSON("duluth_precincts_WGS84.geojson",function(data){
@@ -172,20 +172,21 @@
                         }
                     },
 
-                    // do something to each feature
-                    // in this case create a popup
+                    // create a popup in each feature
                     onEachFeature: function (feature, layer) {
-                        var thirdPartyPct = calculateThirdPartyPct(feature);
-            
-                        // show name of precinct and third party percent in popup
+                        // calculate party percent of vote using function
+                        var partyPct = calculatePartyPct(feature);
+                    
+                        // show name of precinct and party percent in popup
                         layer.bindPopup(
                             "<h3>" + feature.properties.PCTNAME + "</h3>" +
-                            "<p>Third Party Vote: " + thirdPartyPct + "%</p>"
+                            "<p>Democrat Vote: <span class='dem'>" + partyPct.dem + "%</span></p>" +
+                            "<p>Republican Vote: <span class='rep'>" + partyPct.rep + "%</span></p>"
                         );
                     }
                 }).addTo(map);
-            });	
-
+            });
+            
             // a function that takes a feature and returns the percent of the vote
             // that doesn't belong to Republican or Democrat (ie. Third Party)
             function calculateThirdPartyPct(feature) {
