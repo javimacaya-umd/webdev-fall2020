@@ -81,6 +81,20 @@
         /* representative color styling for each party, based on source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev4.html */
         #colorDem {color: blue;}
         #colorRep {color: red;}
+        
+        /* styling legend, source: https://leafletjs.com/examples/choropleth/example.html */
+        .legend { 
+            text-align: left; 
+            line-height: 18px; 
+            color: #555; 
+        } 
+        .legend i { 
+            width: 18px; 
+            height: 18px; 
+            float: left; 
+            margin-right: 8px; 
+            opacity: 1; 
+        }
     </style>
 </head>
 
@@ -212,6 +226,44 @@
                     dem: demPct
                 };
             }
+        </script>
+    
+    <! -- Bonus: Adding Legend, adapted from source: https://leafletjs.com/examples/choropleth/example.html -->
+        <script>
+           function getColor(d) {
+                return d === 'Republican 35% or more'  ? '#ca0020' :
+                       d === 'Republican 30% or more'  ? '#f4a582' :
+                       d === 'Fairly even (both parties within 1%)' ? '#f7f7f7' :
+                       d === 'Democrat 65% or more' ? '#92c5de' :
+                                                    '#0571b0';
+           }
+            function style(feature) {
+                return {
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 1,
+                    radius: 6,
+                    fillColor: getColor(feature.properties.density),
+                    color: 'grey',
+                    dashArray: '3'
+                };
+            }
+            var legend = L.control({position: 'bottomright'});
+            legend.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info legend');
+                labels = [],
+                categories = ['Republican 35% or more','Republican 30% or more','Fairly even (both parties within 1%)','Democrat 65% or more','Democrat 75% or more'];
+
+                for (var i = 0; i < categories.length; i++) {
+                    div.innerHTML += 
+                        labels.push('<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+                        (categories[i] ? categories[i] : '+'));
+
+                }
+            div.innerHTML = labels.join('<br>');
+            return div;
+            };
+            legend.addTo(map);
         </script>
 </body>
 
