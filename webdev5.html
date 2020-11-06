@@ -10,7 +10,22 @@
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css" rel='stylesheet' />
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js"></script>
     
-    
+    <style>
+        /* Making the map full-screen, source: https://leafletjs.com/examples/mobile/ */
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+        #map {
+            top: 60px;
+            /* Making the map window bigger, source: view-source:https://kristofj-umd.github.io/webdev-f19/assignments/webdev3.html */   
+            height: calc(100vh - 60px);
+        }
+    </style>
 </head>
 
 <body>
