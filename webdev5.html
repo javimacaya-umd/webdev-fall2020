@@ -39,7 +39,7 @@
     <div id="map"></div>
     
     <script>
-        // Loading mapbox basemap and setting map view, source: https://docs.mapbox.com/mapbox-gl-js/api/
+        // Loading mapbox basemap and setting map view, source: https://docs.mapbox.com/mapbox-gl-js/api/ 
         mapboxgl.accessToken = 'pk.eyJ1IjoiamF2aW1hY2F5YSIsImEiOiJja2ZpZndjMDgwOGFyMnBrdXIxbTlhNzhwIn0.dY2Ij8lB1KyP28WBXthpCg';
         var map = new mapboxgl.Map({
             container: 'map',
@@ -48,6 +48,8 @@
             zoom: 5.7
         }).addTo(map);
         
+        // The hosted feature layer is not displaying after trying for a veeeeeeery long time
+        // Finally, I am giving up     
         // Adding Scenic Byways MN feature layer from ArcGIS Online, source: https://gisdata.mn.gov/dataset/trans-routes-tour
         const scenicBywaysMN = L.esri.featureLayer({
             url: 'https://services.arcgis.com/8df8p0NlLFEShl0r/arcgis/rest/services/Scenic_Byways_MN/FeatureServer'
